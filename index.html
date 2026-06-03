@@ -1,1 +1,231 @@
-
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puissance Visibilité — Zaga Spirit</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--black:#04040a;--dark:#080810;--card:#0c0c18;--border:#1c1c30;--purple:#7c3aed;--purple2:#a855f7;--green:#00ff88;--green2:#00cc6a;--white:#eeeef8;--gray:#6b6b90;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--white);font-family:'Rajdhani',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,58,237,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.04) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
+body.rtl{direction:rtl;}
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(4,4,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;}
+.lang-btn{padding:5px 14px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--gray);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all 0.2s;}
+.lang-btn.active{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 0 12px rgba(124,58,237,0.4);}
+header{position:relative;z-index:10;text-align:center;padding:90px 20px 48px;border-bottom:1px solid var(--border);}
+.pulse-dot{width:9px;height:9px;background:var(--green);border-radius:50%;box-shadow:0 0 14px var(--green);display:inline-block;animation:pulseAnim 2s infinite;}
+@keyframes pulseAnim{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+.logo-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px;}
+h1{font-family:'Orbitron',monospace;font-size:clamp(24px,7vw,52px);font-weight:900;letter-spacing:5px;background:linear-gradient(135deg,var(--white) 0%,var(--purple2) 45%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tagline{font-size:13px;color:var(--gray);letter-spacing:3px;text-transform:uppercase;margin-top:6px;}
+.live-badge{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:6px 18px;border:1px solid var(--green2);border-radius:20px;font-size:11px;color:var(--green);letter-spacing:2px;}
+section{position:relative;z-index:10;max-width:920px;margin:0 auto;padding:40px 16px;}
+.sec-title{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:4px;color:var(--purple2);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--purple) 0%,transparent 100%);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
+.scard:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:0 8px 30px rgba(124,58,237,0.18);}
+.scard.sel{border-color:var(--green);box-shadow:0 0 24px rgba(0,255,136,0.14);}
+.scard-icon{font-size:30px;margin-bottom:10px;display:block;}
+.scard-name{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--white);letter-spacing:2px;margin-bottom:7px;}
+.scard-desc{font-size:13px;color:var(--gray);line-height:1.55;}
+.scard-price{margin-top:12px;font-family:'Orbitron',monospace;font-size:12px;color:var(--green);}
+.chk{position:absolute;top:10px;right:10px;width:20px;height:20px;background:var(--green);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:bold;}
+.scard.sel .chk{display:flex;}
+.order-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 22px;display:none;}
+.order-form.show{display:block;animation:fadeUp 0.4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.sel-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:rgba(124,58,237,0.12);border:1px solid var(--purple);border-radius:20px;font-size:13px;color:var(--purple2);margin-bottom:22px;}
+.frow{margin-bottom:16px;}
+.flabel{font-size:11px;letter-spacing:2px;color:var(--gray);text-transform:uppercase;margin-bottom:7px;display:block;}
+.finput,.ftextarea,.fselect{width:100%;background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--white);font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;}
+.finput:focus,.ftextarea:focus,.fselect:focus{border-color:var(--purple);}
+.ftextarea{resize:vertical;min-height:90px;}
+.fselect option{background:var(--dark);}
+.btn-sub{width:100%;padding:15px;background:linear-gradient(135deg,var(--purple) 0%,#4c1d95 100%);border:none;border-radius:10px;color:#fff;font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:3px;cursor:pointer;transition:all 0.3s;}
+.btn-sub:hover{box-shadow:0 0 30px rgba(124,58,237,0.5);transform:translateY(-1px);}
+.success{display:none;text-align:center;padding:44px 22px;background:var(--card);border:1px solid var(--green2);border-radius:16px;}
+.success.show{display:block;animation:fadeUp 0.4s ease;}
+.suc-icon{font-size:52px;margin-bottom:14px;}
+.suc-title{font-family:'Orbitron',monospace;font-size:16px;color:var(--green);margin-bottom:10px;letter-spacing:2px;}
+.suc-text{color:var(--gray);font-size:15px;line-height:1.65;}
+.chat-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.chat-header{background:linear-gradient(135deg,rgba(124,58,237,0.2) 0%,rgba(0,255,136,0.05) 100%);padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);}
+.chat-avatar{width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.chat-name{font-family:'Orbitron',monospace;font-size:11px;color:var(--white);letter-spacing:2px;}
+.chat-status{font-size:11px;color:var(--green);}
+.chat-msgs{padding:16px;height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;}
+.msg{max-width:82%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5;}
+.msg.ai{background:#0f0f20;border:1px solid var(--border);color:var(--white);align-self:flex-start;border-bottom-left-radius:4px;}
+.msg.user{background:var(--purple);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;}
+.msg-sender{font-size:10px;letter-spacing:2px;color:var(--purple2);margin-bottom:4px;font-family:'Orbitron',monospace;}
+.typing span{width:7px;height:7px;background:var(--gray);border-radius:50%;animation:bounce 1.2s infinite;display:inline-block;margin:0 2px;}
+.typing span:nth-child(2){animation-delay:0.2s;}
+.typing span:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-8px);}}
+.chat-input-row{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;}
+.chat-inp{flex:1;background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--white);font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;}
+.chat-inp:focus{border-color:var(--purple);}
+.chat-send{width:40px;height:40px;background:var(--purple);border:none;border-radius:8px;color:#fff;font-size:16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.quick-btns{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:7px;}
+.qbtn{padding:5px 12px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);border-radius:16px;color:var(--purple2);font-size:12px;cursor:pointer;font-family:'Rajdhani',sans-serif;transition:all 0.2s;}
+footer{position:relative;z-index:10;text-align:center;padding:28px 20px;border-top:1px solid var(--border);color:var(--gray);font-size:12px;letter-spacing:2px;}
+footer span{color:var(--purple2);}
+</style>
+</head>
+<body>
+<div class="lang-bar">
+<button class="lang-btn active" onclick="setLang('fr')">🇫🇷 FR</button>
+<button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+<button class="lang-btn" onclick="setLang('ar')">🇦🇪 AR</button>
+</div>
+<header>
+<div class="logo-row"><div class="pulse-dot"></div><h1>PUISSANCE VISIBILITÉ</h1><div class="pulse-dot"></div></div>
+<p class="tagline" id="t_tagline">Intelligence Artificielle · Automatisation · Digital</p>
+<div class="live-badge"><div class="pulse-dot" style="width:7px;height:7px"></div><span id="t_live">SYSTÈMES OPÉRATIONNELS · DUBAI, UAE</span></div>
+</header>
+<section>
+<div class="sec-title" id="t_sec">Choisissez votre service</div>
+<div class="grid">
+<div class="scard" onclick="selectService(this,'whatsapp')"><div class="chk">✓</div><span class="scard-icon">🤖</span><div class="scard-name" id="s1n">WHATSAPP IA</div><div class="scard-desc" id="s1d">Un assistant IA répond à tous vos clients sur WhatsApp automatiquement, 24h/24, 7j/7.</div><div class="scard-price" id="s1p">À partir de 150 AED / mois</div></div>
+<div class="scard" onclick="selectService(this,'site')"><div class="chk">✓</div><span class="scard-icon">🌐</span><div class="scard-name" id="s2n">SITE WEB</div><div class="scard-desc" id="s2d">Site professionnel moderne, rapide et optimisé. Portfolio, vitrine, e-commerce sur mesure.</div><div class="scard-price" id="s2p">À partir de 300 AED</div></div>
+<div class="scard" onclick="selectService(this,'visibility')"><div class="chk">✓</div><span class="scard-icon">🚀</span><div class="scard-name" id="s3n">VISIBILITÉ VIRALE</div><div class="scard-desc" id="s3d">Augmentez votre présence sur Instagram, TikTok, Facebook. Stratégie + exécution automatisée.</div><div class="scard-price" id="s3p">À partir de 120 AED / mois</div></div>
+<div class="scard" onclick="selectService(this,'auto')"><div class="chk">✓</div><span class="scard-icon">⚡</span><div class="scard-name" id="s4n">AUTOMATISATION</div><div class="scard-desc" id="s4d">Automatisez vos tâches répétitives. Leads, emails, rappels, CRM — tout tourne seul.</div><div class="scard-price" id="s4p">À partir de 200 AED</div></div>
+<div class="scard" onclick="selectService(this,'bot')"><div class="chk">✓</div><span class="scard-icon">📱</span><div class="scard-name" id="s5n">BOT RÉSEAUX SOCIAUX</div><div class="scard-desc" id="s5d">Bot intelligent pour Telegram, Instagram ou Facebook. Répond, filtre, convertit vos prospects.</div><div class="scard-price" id="s5p">À partir de 180 AED</div></div>
+<div class="scard" onclick="selectService(this,'conseil')"><div class="chk">✓</div><span class="scard-icon">🧠</span><div class="scard-name" id="s6n">CONSEIL IA</div><div class="scard-desc" id="s6d">Consultation personnalisée pour intégrer l'IA dans votre business.</div><div class="scard-price" id="s6p">À partir de 100 AED</div></div>
+</div>
+</section>
+<section>
+<div class="order-form" id="orderForm">
+<div class="sec-title" id="t_form">Votre demande</div>
+<div class="sel-badge">✦ <span id="selName"></span></div>
+<div class="frow"><label class="flabel" id="t_fname">Votre nom complet *</label><input type="text" class="finput" id="fName" placeholder="Ex: Mohamed Al Rashidi"></div>
+<div class="frow"><label class="flabel" id="t_fphone">Numéro WhatsApp *</label><input type="tel" class="finput" id="fPhone" placeholder="+971 50 000 0000"></div>
+<div class="frow"><label class="flabel" id="t_fbiz">Votre business / Secteur *</label><input type="text" class="finput" id="fBusiness" placeholder="Ex: Agence immobilière à Dubaï"></div>
+<div class="frow" id="fSocialRow" style="display:none;"><label class="flabel" id="t_fsoc">Lien de votre page / profil</label><input type="text" class="finput" id="fSocial" placeholder="https://instagram.com/..."></div>
+<div class="frow"><label class="flabel" id="t_fbudget">Budget estimé</label><select class="fselect" id="fBudget"><option value="">-- Sélectionnez --</option><option>100 - 300 AED</option><option>300 - 600 AED</option><option>600 - 1000 AED</option><option>1000 AED et plus</option></select></div>
+<div class="frow"><label class="flabel" id="t_fmsg">Décrivez votre besoin</label><textarea class="ftextarea" id="fMsg" placeholder="Expliquez votre projet..."></textarea></div>
+<button class="btn-sub" id="subBtn" onclick="submitForm()"><span id="t_fsub">⚡ ENVOYER MA DEMANDE</span></button>
+</div>
+<div class="success" id="successBox">
+<div class="suc-icon">✅</div>
+<div class="suc-title" id="t_suc_title">DEMANDE ENVOYÉE</div>
+<div class="suc-text" id="t_suc_text">Votre demande a été transmise à <strong>Emmanuel — Zaga Spirit</strong>.<br><br>Vous serez contacté sur WhatsApp dans les <strong>24 heures</strong>.<br>Aucun paiement requis avant confirmation du devis.</div>
+</div>
+</section>
+<section>
+<div class="sec-title" id="t_chat">Parlez à ZAG IA</div>
+<div class="chat-wrap">
+<div class="chat-header"><div class="chat-avatar">🧠</div><div><div class="chat-name">ZAG IA</div><div class="chat-status">● <span id="t_online">En ligne — créé par Emmanuel Sindedji</span></div></div></div>
+<div class="chat-msgs" id="chatMsgs"><div class="msg ai"><div class="msg-sender">ZAG IA</div><span id="t_welcome">Bonjour ! Je suis ZAG IA, l'intelligence de Zaga Spirit. Je connais tous les services d'Emmanuel. Comment puis-je vous aider ?</span></div></div>
+<div class="quick-btns">
+<button class="qbtn" onclick="quickMsg(this)" id="q1">👤 Qui est Emmanuel ?</button>
+<button class="qbtn" onclick="quickMsg(this)" id="q2">💼 Services</button>
+<button class="qbtn" onclick="quickMsg(this)" id="q3">💰 Tarifs</button>
+<button class="qbtn" onclick="quickMsg(this)" id="q4">📞 Contact</button>
+</div>
+<div class="chat-input-row"><input type="text" class="chat-inp" id="chatInp" placeholder="Écrivez votre message..." onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">➤</button></div>
+</div>
+</section>
+<footer><span>PUISSANCE VISIBILITÉ</span> · by ZAGA SPIRIT · Dubai, UAE · +971 50 643 8525</footer>
+<script>
+const WA='971506438525';
+const LANGS={
+fr:{tagline:'Intelligence Artificielle · Automatisation · Digital',live:'SYSTÈMES OPÉRATIONNELS · DUBAI, UAE',sec:'Choisissez votre service',s1n:'WHATSAPP IA',s1d:"Un assistant IA répond à tous vos clients sur WhatsApp automatiquement, 24h/24, 7j/7.",s1p:'À partir de 150 AED / mois',s2n:'SITE WEB',s2d:"Site professionnel moderne, rapide et optimisé.",s2p:'À partir de 300 AED',s3n:'VISIBILITÉ VIRALE',s3d:"Augmentez votre présence sur Instagram, TikTok, Facebook.",s3p:'À partir de 120 AED / mois',s4n:'AUTOMATISATION',s4d:"Automatisez vos tâches. Tout tourne seul.",s4p:'À partir de 200 AED',s5n:'BOT RÉSEAUX SOCIAUX',s5d:"Bot intelligent pour Telegram, Instagram ou Facebook.",s5p:'À partir de 180 AED',s6n:'CONSEIL IA',s6d:"Consultation personnalisée pour intégrer l'IA dans votre business.",s6p:'À partir de 100 AED',form:'Votre demande',fname:'Votre nom complet *',fphone:'Numéro WhatsApp *',fbiz:'Votre business / Secteur *',fsoc:'Lien de votre page / profil',fbudget:'Budget estimé',fmsg:'Décrivez votre besoin',fsub:'⚡ ENVOYER MA DEMANDE',suc_title:'DEMANDE ENVOYÉE',suc_text:"Votre demande a été transmise à <strong>Emmanuel — Zaga Spirit</strong>.<br><br>Vous serez contacté sur WhatsApp dans les <strong>24 heures</strong>.<br>Aucun paiement requis avant confirmation du devis.",chat:'Parlez à ZAG IA',online:'En ligne — créé par Emmanuel Sindedji',welcome:"Bonjour ! Je suis ZAG IA, l'intelligence de Zaga Spirit. Comment puis-je vous aider ?",q1:'👤 Qui est Emmanuel ?',q2:'💼 Services',q3:'💰 Tarifs',q4:'📞 Contact',ph:'Écrivez votre message...'},
+en:{tagline:'Artificial Intelligence · Automation · Digital',live:'SYSTEMS OPERATIONAL · DUBAI, UAE',sec:'Choose your service',s1n:'WHATSAPP AI',s1d:"An AI assistant replies to all your clients on WhatsApp automatically, 24/7.",s1p:'From 150 AED / month',s2n:'WEBSITE',s2d:"Modern, fast, optimized professional website.",s2p:'From 300 AED',s3n:'VIRAL VISIBILITY',s3d:"Boost your presence on Instagram, TikTok, Facebook.",s3p:'From 120 AED / month',s4n:'AUTOMATION',s4d:"Automate your tasks. Everything runs alone.",s4p:'From 200 AED',s5n:'SOCIAL MEDIA BOT',s5d:"Smart bot for Telegram, Instagram or Facebook.",s5p:'From 180 AED',s6n:'AI CONSULTING',s6d:"Personalized consultation to integrate AI into your business.",s6p:'From 100 AED',form:'Your request',fname:'Your full name *',fphone:'WhatsApp number *',fbiz:'Your business / Sector *',fsoc:'Link to your page / profile',fbudget:'Estimated budget',fmsg:'Describe your need',fsub:'⚡ SEND MY REQUEST',suc_title:'REQUEST SENT',suc_text:"Your request has been forwarded to <strong>Emmanuel — Zaga Spirit</strong>.<br><br>You will be contacted on WhatsApp within <strong>24 hours</strong>.<br>No payment required before quote confirmation.",chat:'Talk to ZAG AI',online:'Online — created by Emmanuel Sindedji',welcome:"Hello! I'm ZAG IA, Zaga Spirit's intelligence. How can I help you?",q1:'👤 Who is Emmanuel?',q2:'💼 Services',q3:'💰 Pricing',q4:'📞 Contact',ph:'Type your message...'},
+ar:{tagline:'الذكاء الاصطناعي · الأتمتة · الرقمي',live:'الأنظمة تعمل · دبي، الإمارات',sec:'اختر خدمتك',s1n:'واتساب ذكي',s1d:"مساعد ذكي يرد على عملائك على واتساب تلقائيًا، على مدار الساعة.",s1p:'ابتداءً من 150 درهم / شهر',s2n:'موقع إلكتروني',s2d:"موقع احترافي حديث وسريع.",s2p:'ابتداءً من 300 درهم',s3n:'الظهور الفيروسي',s3d:"عزز حضورك على إنستغرام وتيك توك وفيسبوك.",s3p:'ابتداءً من 120 درهم / شهر',s4n:'الأتمتة',s4d:"أتمت مهامك. كل شيء يعمل وحده.",s4p:'ابتداءً من 200 درهم',s5n:'بوت التواصل',s5d:"بوت ذكي لتيليغرام وإنستغرام وفيسبوك.",s5p:'ابتداءً من 180 درهم',s6n:'استشارة ذكاء اصطناعي',s6d:"استشارة شخصية لدمج الذكاء الاصطناعي في عملك.",s6p:'ابتداءً من 100 درهم',form:'طلبك',fname:'اسمك الكامل *',fphone:'رقم واتساب *',fbiz:'عملك / قطاعك *',fsoc:'رابط صفحتك',fbudget:'الميزانية التقديرية',fmsg:'صف احتياجك',fsub:'⚡ إرسال طلبي',suc_title:'تم إرسال الطلب',suc_text:"تم إرسال طلبك إلى <strong>إيمانويل — زاغا سبيريت</strong>.<br><br>سيتم التواصل معك على واتساب خلال <strong>24 ساعة</strong>.",chat:'تحدث مع ZAG IA',online:'متصل — تم إنشاؤه بواسطة إيمانويل سينديجي',welcome:"مرحبًا! أنا ZAG IA. كيف يمكنني مساعدتك؟",q1:'👤 من هو إيمانويل؟',q2:'💼 الخدمات',q3:'💰 الأسعار',q4:'📞 التواصل',ph:'اكتب رسالتك...'}
+};
+let lang='fr',selKey='',selName='';
+function setLang(l){
+lang=l;
+document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+if(l==='ar'){document.body.classList.add('rtl');document.documentElement.setAttribute('dir','rtl');}
+else{document.body.classList.remove('rtl');document.documentElement.setAttribute('dir','ltr');}
+const t=LANGS[l];
+document.getElementById('t_tagline').textContent=t.tagline;
+document.getElementById('t_live').textContent=t.live;
+document.getElementById('t_sec').childNodes[0].textContent=t.sec;
+['1','2','3','4','5','6'].forEach(i=>{
+document.getElementById('s'+i+'n').textContent=t['s'+i+'n'];
+document.getElementById('s'+i+'d').textContent=t['s'+i+'d'];
+document.getElementById('s'+i+'p').textContent=t['s'+i+'p'];
+});
+document.getElementById('t_form').childNodes[0].textContent=t.form;
+document.getElementById('t_fname').textContent=t.fname;
+document.getElementById('t_fphone').textContent=t.fphone;
+document.getElementById('t_fbiz').textContent=t.fbiz;
+document.getElementById('t_fsoc').textContent=t.fsoc;
+document.getElementById('t_fbudget').textContent=t.fbudget;
+document.getElementById('t_fmsg').textContent=t.fmsg;
+document.getElementById('t_fsub').textContent=t.fsub;
+document.getElementById('t_suc_title').textContent=t.suc_title;
+document.getElementById('t_suc_text').innerHTML=t.suc_text;
+document.getElementById('t_chat').childNodes[0].textContent=t.chat;
+document.getElementById('t_online').textContent=t.online;
+document.getElementById('t_welcome').textContent=t.welcome;
+document.getElementById('q1').textContent=t.q1;
+document.getElementById('q2').textContent=t.q2;
+document.getElementById('q3').textContent=t.q3;
+document.getElementById('q4').textContent=t.q4;
+document.getElementById('chatInp').placeholder=t.ph;
+}
+function selectService(card,key){
+document.querySelectorAll('.scard').forEach(c=>c.classList.remove('sel'));
+card.classList.add('sel');selKey=key;selName=card.querySelector('.scard-name').textContent;
+if(key==='visibility')document.getElementById('fSocialRow').style.display='block';
+else document.getElementById('fSocialRow').style.display='none';
+document.getElementById('selName').textContent=selName;
+const f=document.getElementById('orderForm');f.classList.add('show');
+setTimeout(()=>f.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+function submitForm(){
+const name=document.getElementById('fName').value.trim();
+const phone=document.getElementById('fPhone').value.trim();
+const biz=document.getElementById('fBusiness').value.trim();
+const budget=document.getElementById('fBudget').value;
+const msg=document.getElementById('fMsg').value.trim();
+const social=document.getElementById('fSocial').value.trim();
+if(!name||!phone||!biz){alert('⚠️ Remplissez les champs obligatoires');return;}
+let waMsg=`🔥 *NOUVELLE DEMANDE — PUISSANCE VISIBILITÉ*\n\n📌 *Service :* ${selName}\n👤 *Nom :* ${name}\n📱 *WhatsApp :* ${phone}\n🏢 *Business :* ${biz}`;
+if(social)waMsg+=`\n🔗 *Page :* ${social}`;
+if(budget)waMsg+=`\n💰 *Budget :* ${budget}`;
+if(msg)waMsg+=`\n💬 *Message :* ${msg}`;
+waMsg+=`\n\n⏰ ${new Date().toLocaleString('fr-FR')}`;
+window.open(`https://wa.me/${WA}?text=${encodeURIComponent(waMsg)}`,'_blank');
+setTimeout(()=>{
+document.getElementById('orderForm').classList.remove('show');
+const s=document.getElementById('successBox');s.classList.add('show');
+s.scrollIntoView({behavior:'smooth'});
+},600);
+}
+async function sendChat(){
+const inp=document.getElementById('chatInp');
+const txt=inp.value.trim();if(!txt)return;inp.value='';
+addMsg(txt,'user');showTyping();
+try{
+const r=await fetch('https://zag-ia.onrender.com/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:txt})});
+const d=await r.json();removeTyping();
+addMsg(d.response||d.reply||d.message||'Je suis là pour vous aider !','ai');
+}catch(e){removeTyping();addMsg('Contactez Emmanuel directement : +971 50 643 8525','ai');}
+}
+function quickMsg(btn){document.getElementById('chatInp').value=btn.textContent.replace(/^[^\w\u0600-\u06FF]+/,'').trim();sendChat();}
+function addMsg(text,role){
+const m=document.getElementById('chatMsgs');
+const d=document.createElement('div');d.className=`msg ${role}`;
+if(role==='ai')d.innerHTML=`<div class="msg-sender">ZAG IA</div>${text}`;
+else d.textContent=text;
+m.appendChild(d);m.scrollTop=m.scrollHeight;
+}
+function showTyping(){
+const m=document.getElementById('chatMsgs');
+const d=document.createElement('div');d.className='msg ai';d.id='typ';
+d.innerHTML='<div class="msg-sender">ZAG IA</div><div class="typing"><span></span><span></span><span></span></div>';
+m.appendChild(d);m.scrollTop=m.scrollHeight;
+}
+function removeTyping(){const t=document.getElementById('typ');if(t)t.remove();}
+</script>
+</body>
+</html>

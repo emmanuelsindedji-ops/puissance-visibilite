@@ -206,7 +206,7 @@ const inp=document.getElementById('chatInp');
 const txt=inp.value.trim();if(!txt)return;inp.value='';
 addMsg(txt,'user');showTyping();
 try{
-const r=await fetch('https://zag-ia.onrender.com/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:txt})});
+const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),60000);const r=await fetch('https://zag-ia.onrender.com/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:txt}),signal:controller.signal});clearTimeout(timer);
 const d=await r.json();removeTyping();
 addMsg(d.reply||d.response||d.message||'Je suis là pour vous aider !','ai');
 }catch(e){removeTyping();addMsg('Contactez Emmanuel directement : +971 50 643 8525','ai');}

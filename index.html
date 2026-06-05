@@ -208,7 +208,7 @@ addMsg(txt,'user');showTyping();
 try{
 const r=await fetch('https://zag-ia.onrender.com/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:txt})});
 const d=await r.json();removeTyping();
-addMsg(d.response||d.reply||d.message||'Je suis là pour vous aider !','ai');
+addMsg(d.reply||d.response||d.message||'Je suis là pour vous aider !','ai');
 }catch(e){removeTyping();addMsg('Contactez Emmanuel directement : +971 50 643 8525','ai');}
 }
 function quickMsg(btn){document.getElementById('chatInp').value=btn.textContent.replace(/^[^\w\u0600-\u06FF]+/,'').trim();sendChat();}
